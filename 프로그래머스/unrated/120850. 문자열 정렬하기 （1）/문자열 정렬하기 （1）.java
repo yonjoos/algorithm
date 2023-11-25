@@ -4,24 +4,17 @@ class Solution {
     public int[] solution(String my_string) {
         int[] answer = {};
         
-        char start = '0';
-        char last = '9';
+        String str = my_string.replaceAll("[A-Z|a-z]", "");
         
-        List<Integer> temp = new ArrayList<>();
+        char[] tmp = str.toCharArray();
         
-        for(int i = 0; i < my_string.length(); i++){
-            if(start <= my_string.charAt(i) && last >= my_string.charAt(i)){
-                temp.add(Integer.parseInt(String.valueOf(my_string.charAt(i))));
-            }
-        }
+        Arrays.sort(tmp);
         
-        Collections.sort(temp);
-        int[] ans = new int[temp.size()];
+        int[] ans = new int[tmp.length];
         int cnt = 0;
-        for(Integer i : temp){
-            ans[cnt++] = i;
+        for(char c : tmp){
+            ans[cnt++] = c-'0';
         }
-        
         return ans;
     }
 }
