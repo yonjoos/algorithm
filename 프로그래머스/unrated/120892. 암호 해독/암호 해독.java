@@ -5,7 +5,7 @@ class Solution {
         int index = -1 + code;;
         while(index <= cipher.length()-1){
             
-            answer += String.valueOf(cipher.charAt(index));
+            answer += cipher.substring(index, index+1);
             index += code;
         }
         
