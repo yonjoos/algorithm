@@ -8,6 +8,7 @@ class Solution {
         Arrays.sort(array);
         for(int i : array){
             if (i == n) answer++;
+            if (i > n) break;
         }
         
         
