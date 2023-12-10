@@ -4,9 +4,6 @@ class Solution {
         answer = new String[quiz.length];
         int index = 0;
         
-        int zero = '0';
-        int nine = '9';
-        
         for(String q : quiz){
             String[] equation = q.split(" ");
             int len = equation.length;
