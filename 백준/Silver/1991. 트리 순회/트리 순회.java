@@ -1,15 +1,7 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.*;
 
 
 public class Main {
-
-    static int[][] graph = {};
-    static int ans = 0;
-    static HashSet<Integer> a = new HashSet<>();
-    static boolean[] visited = {};
 
     public static void main(String[] args) throws Exception{
 
@@ -36,6 +28,10 @@ public class Main {
 
         List<Node> nodes = new ArrayList<>();
         nodes.add(root);
+
+        //CREATE TREE
+
+        //CREATE NODES
         for(int i = 1; i < N; i++){
             String s = sc.next();
             String l = sc.next();
@@ -45,6 +41,7 @@ public class Main {
             nodes.add(n);
         }
 
+        //CONNECT NODES
         for(int i = 0; i < N;i++){
             Node n = nodes.get(i);
             String ls = "";
@@ -66,30 +63,14 @@ public class Main {
             }
         }
 
-//        Node no = tree.root;
-//        System.out.println(no.name);
-//        while(true){
-//            if(no.left != null){
-//                no = no.left;
-//                System.out.println("b "+no.name);
-//            }else{
-//                System.out.println(no.name);
-//                break;
-//            }
-//        }
 
+        //SEARCH
         tree.search1(tree.root);
         System.out.println();
         tree.search2(tree.root);
         System.out.println();
-
         tree.search3(tree.root);
-
-
-
     }
-
-
 
     public static Node makeNode(String s, String l, String r){
         Node n = new Node(s);
@@ -110,55 +91,36 @@ public class Main {
             this.root = root;
         }
 
-
         void search1(Node node){
             if (node == null) return;
 
             Node n = new Node(node);
-            n.print();
 
-            if(n.left != null){
-                search1(n.left);
-                search1(n.right);
-            }if(n.left == null && n.right != null){
-                search1(n.right);
-            }
+            n.print();
+            search1(n.left);
+            search1(n.right);
+
         }
 
         void search2(Node node){
             if(node == null) return;
 
             Node n = new Node(node);
-            if(n.left != null){
-                search2(n.left);
-                n.print();
-                search2(n.right);
 
-            }
-            else if(n.left == null && n.right != null){
-                n.print();
-                search2(n.right);
-            }
-            else if(n.left == null && n.right == null){
-                n.print();
-            }
+            search2(n.left);
+            n.print();
+            search2(n.right);
+
+
         }
 
         void search3(Node node){
             if(node == null) return;
-//            System.out.print("oh please");
-//            node.print();
 
             Node n = new Node(node);
-            if(n.left != null){
-                search3(n.left);
-                search3(n.right);
-            }
-            else if(n.right != null){
-                search3(n.right);
-            }
-            else if(n.left == null && n.right == null){
-            }
+
+            search3(n.left);
+            search3(n.right);
             n.print();
         }
 
