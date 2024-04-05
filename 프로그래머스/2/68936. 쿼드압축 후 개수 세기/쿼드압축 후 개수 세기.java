@@ -2,75 +2,56 @@ import java.util.*;
 
 
 class Solution {
+    
+    static int[][] arr;
+    public int[] solution(int[][] array) {
+        int[] answer = {};
+
+        arr = array;
+        
+        Count count = count(0,0, array.length);
+
+        return new int[]{count.zero, count.one};
+    }
+    
+    public Count count(int offsetX, int offsetY, int size){
+        
+        int first = arr[offsetY][offsetX];
+        int mid = size/2;
+        
+        for(int y = offsetY; y < offsetY + size; y++){
+            for(int x = offsetX; x < offsetX + size; x++){
+                if(arr[y][x] != first){
+                    
+                    Count ret = count(offsetX, offsetY, mid);
+                    ret = ret.add(count(offsetX + mid, offsetY, mid));
+                    ret = ret.add(count(offsetX, offsetY + mid, mid));
+                    ret = ret.add(count(offsetX + mid, offsetY + mid, mid));
+                    
+                    return ret;
+                }
+                
+            }
+        }
+        
+        if(first == 1) return new Count(0, 1);
+        return new Count(1, 0);
+    }
+    
+    
     class Count {
-
-        private int zero;
-        private int one;
-
-
-        public Count(int zero, int one) {
+        int zero;
+        int one;
+        
+        Count(int zero, int one){
             this.zero = zero;
             this.one = one;
         }
-
-        public Count() {
-        }
-
+        
         public Count add(Count other){
-            int zero = this.zero + other.zero;
-            int one = this.one + other.one;
-
-
-            return new Count(zero, one);
-        }
-
-        public int getZero() {
-            return zero;
-        }
-
-        public int getOne() {
-            return one;
+            return new Count(zero + other.zero, one + other.one);
         }
     }
-    public int[] solution(int[][] arr) {
-        int[] answer = {};
 
-
-        Count ans = count(0,0, arr.length, arr );
-
-        answer = new int[]{ans.getZero(), ans.getOne()};
-
-
-        return answer;
-    }
-
-    public Count count(int offsetX, int offsetY, int size, final int[][] arr){
-
-        for(int x = offsetX; x < offsetX + size; x++){
-            for(int y = offsetY; y < offsetY + size; y++){
-                if(arr[y][x] != arr[offsetY][offsetX]){
-
-                    int h = size/2;
-
-                    Count ret = count(offsetX, offsetY, h, arr)
-                            .add(count(offsetX + h, offsetY, h, arr))
-                            .add(count(offsetX, offsetY + h, h, arr))
-                            .add(count(offsetX + h, offsetY + h, h, arr));
-
-
-                    return ret;
-                }
-            }
-        }
-
-        Count count;
-        if(arr[offsetY][offsetX] == 1){
-            count = new Count(0, 1);
-        }
-        else {
-            count = new Count(1, 0);
-        }
-
-        return count;
-    }
+  
 }
